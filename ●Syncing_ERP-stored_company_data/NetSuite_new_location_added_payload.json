@@ -1,0 +1,43 @@
+{
+  "event": "customer.updated",
+  "data": {
+    "internalId": "NS-4521",
+    "companyName": "Acme Corporation",
+    "addressBook": [
+      {
+        "internalId": "NS-LOC-101",
+        "label": "Acme HQ",
+        "addr1": "123 Main St",
+        "city": "Austin",
+        "state": "TX",
+        "zip": "78701",
+        "country": "US"
+      },
+      {
+        "internalId": "NS-LOC-102",
+        "label": "Acme Dallas Warehouse",
+        "addr1": "456 Industrial Blvd",
+        "city": "Dallas",
+        "state": "TX",
+        "zip": "75201",
+        "country": "US"
+      }
+    ],
+    "contacts": [
+      {
+        "internalId": "NS-CON-001",
+        "firstName": "Alice",
+        "lastName": "Johnson",
+        "email": "alice@acme.com",
+        "role": "ADMIN"
+      },
+      {
+        "internalId": "NS-CON-002",
+        "firstName": "Bob",
+        "lastName": "Smith",
+        "email": "bob@acme.com",
+        "role": "MEMBER"
+      }
+    ]
+  }
+}
