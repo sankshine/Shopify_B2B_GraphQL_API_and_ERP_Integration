@@ -1,0 +1,51 @@
+import requests
+
+SHOPIFY_URL = "https://techparts.myshopify.com/admin/api/2024-01/graphql.json"
+HEADERS = {
+    "Content-Type": "application/json",
+    "X-Shopify-Access-Token": "your-token-here",
+}
+
+def graphql(query, variables={}):
+    r = requests.post(SHOPIFY_URL, headers=HEADERS, json={"query": query, "variables": variables})
+    r.raise_for_status()
+    return r.json()
+
+# Real NetSuite webhook data for Acme
+erp_payload = {
+    "customerId":   "NS-4521",
+    "companyName":  "Acme Corporation",
+    "pricingTier":  "TIER_A",
+    "priceVersion": "2024-02-01",
+    "currency":     "USD",
+    "lines": [
+        {"sku": "SKU-001", "shopify_variant_id": "gid://shopify/ProductVariant/1001", "agreedPrice": "43.00"},
+        {"sku": "SKU-002", "shopify_variant_id": "gid://shopify/ProductVariant/1002", "agreedPrice": "18.50"},
+        {"sku": "SKU-003", "shopify_variant_id": "gid://shopify/ProductVariant/1003", "agreedPrice": "108.00"},
+        {"sku": "SKU-004", "shopify_variant_id": "gid://shopify/ProductVariant/1004", "agreedPrice": "88.00"},
+    ],
+}
+
+# ── Create the Price List ────────────────────────────────────────────────────
+create_pl = """
+mutation PriceListCreate($input: PriceListCreateInput!) {
+  priceListCreate(input: $input) {
+    priceList { id name }
+    userErrors  { field message }
+  }
+}
+"""
+result = graphql(create_pl, {
+    "input": {
+        "name":     f"ERP {erp_payload['pricingTier']} — {erp_payload['companyName']}",
+        "currency": erp_payload["currency"],
+        "parent": {
+            "adjustment": { "type": "PERCENTAGE_DECREASE", "value": "20.0" },
+            "settings":   { "compareAtMode": "NULLIFY" }
+        }
+    }
+})
+
+pl_gid = result["data"]["priceListCreate"]["priceList"]["id"]
+print(f"Price list created: {pl_gid}")
+# → gid://shopify/PriceList/333333333
