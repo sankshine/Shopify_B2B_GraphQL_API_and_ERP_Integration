@@ -1,0 +1,27 @@
+{
+  "event": "customer.updated",
+  "record_type": "customer",
+  "data": {
+    "internalId": "NS-4521",
+    "companyName": "Acme Corporation",
+    "currency": "USD",
+    "addressBook": [
+      {
+        "internalId": "NS-LOC-101",
+        "label": "Acme HQ",
+        "addr1": "123 Main St",
+        "city": "Austin",
+        "state": "TX",
+        "zip": "78701",
+        "country": "US",
+        "defaultShipping": true
+      }
+    ]
+  }
+}
+```
+
+Your middleware receives that, then immediately fires a real Shopify GraphQL mutation against your store's Admin API endpoint:
+```
+POST https://acme-store.myshopify.com/admin/api/2024-01/graphql.json
+X-Shopify-Access-Token: YOUR_TOKEN
