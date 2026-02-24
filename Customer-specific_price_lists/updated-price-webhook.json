@@ -1,0 +1,16 @@
+{
+  "event": "pricing.updated",
+  "data": {
+    "customerId": "NS-4521",
+    "companyName": "Acme Corporation",
+    "pricingTier": "TIER_A",
+    "priceVersion": "2024-02-01",
+    "currency": "USD",
+    "lines": [
+      { "sku": "SKU-001", "name": "Industrial Widget A", "agreedPrice": "43.00" },
+      { "sku": "SKU-002", "name": "Heavy Bolt Set B",    "agreedPrice": "18.50" },
+      { "sku": "SKU-003", "name": "Precision Gear C",    "agreedPrice": "108.00" },
+      { "sku": "SKU-004", "name": "Safety Harness D",    "agreedPrice": "88.00" }
+    ]
+  }
+}
