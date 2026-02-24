@@ -19,9 +19,6 @@
     ]
   }
 }
-```
 
-Your middleware receives that, then immediately fires a real Shopify GraphQL mutation against your store's Admin API endpoint:
-```
 POST https://acme-store.myshopify.com/admin/api/2024-01/graphql.json
-X-Shopify-Access-Token: YOUR_TOKEN
+X-Shopify-Access-Token: XXXXXXXXX
