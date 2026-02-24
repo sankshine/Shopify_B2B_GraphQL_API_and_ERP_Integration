@@ -1,0 +1,22 @@
+mutation {
+  companyCreate(input: {
+    company: {
+      name: "Acme Corporation"
+      externalId: "NS-4521"
+    }
+    companyLocation: {
+      name: "Acme HQ"
+      shippingAddress: {
+        address1: "123 Main St"
+        city: "Austin"
+        provinceCode: "TX"
+        zip: "78701"
+        countryCode: US
+      }
+      billingSameAsShipping: true
+    }
+  }) {
+    company { id name }
+    userErrors { field message }
+  }
+}
