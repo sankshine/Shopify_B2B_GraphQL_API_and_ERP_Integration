@@ -1,0 +1,11 @@
+{
+  "data": {
+    "companyCreate": {
+      "company": {
+        "id": "gid://shopify/Company/987654321",
+        "name": "Acme Corporation"
+      },
+      "userErrors": []
+    }
+  }
+}
