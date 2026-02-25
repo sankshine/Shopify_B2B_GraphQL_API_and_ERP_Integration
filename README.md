@@ -58,7 +58,7 @@ The Lambda function also writes to a mapping table after every successful create
 
 ## What Each Step Does
 
-### Step A — Company and Location Sync
+### Step A — Syncing ERP stored company data
 
 Covers the full flow from receiving a NetSuite webhook to having a Company, its Locations, and its Contacts live in Shopify B2B.
 
@@ -68,7 +68,7 @@ Covers the full flow from receiving a NetSuite webhook to having a Company, its 
 - Creates a Shopify Customer record for each ERP contact and links them to the company using `companyAssignCustomerAsContact` with either an ADMIN or MEMBER role.
 - For address changes, uses `companyLocationAssignAddress` rather than deleting and recreating. Deleting a location that has open draft orders causes errors and breaks those orders. Before any address update where the zip code changes, the integration checks for active draft orders on that location and logs a warning, since address changes in a different tax jurisdiction trigger tax recalculation on Shopify's side.
 
-### Step B — Price List and Catalog Sync
+### Step B — Customer specific price list
 
 Covers creating customer-specific pricing in Shopify and routing it to the correct buyers at checkout.
 
@@ -77,7 +77,7 @@ Covers creating customer-specific pricing in Shopify and routing it to the corre
 - For very large catalogs in the tens of thousands of SKUs, uses `stagedUploadsCreate` to upload a JSONL file and triggers a bulk operation that Shopify processes asynchronously in the background. This avoids exhausting the rate limit budget that batching alone would cause at that scale.
 - Creates a `Catalog` per tier and assigns it to all matching company location GIDs from the mapping table. Once assigned, Shopify automatically routes the correct price list to the correct buyer at checkout with no further intervention.
 
-### Step C — Data Consistency and Reconciliation
+### Step C — Data Consistency
 
 Covers keeping Shopify in sync with the ERP over time as data changes.
 
