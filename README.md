@@ -54,21 +54,7 @@ The Lambda function also writes to a mapping table after every successful create
 
 ---
 
-## Project Structure
 
-```
-shopify_b2b_integration/
-├── step_a_company_sync.py       Receives NetSuite webhook, creates Company, Locations, Contacts
-├── step_b_price_lists.py        Creates Price Lists, pushes fixed prices, creates Catalogs
-├── step_c_reconciliation.py     Version checks, delta updates, nightly reconciliation, safe location updates
-├── erp_data.py                  Dummy ERP data simulating NetSuite output
-├── shopify_mock.py              Mocked Shopify GraphQL API for local testing without a real store
-├── id_map.py                    In-memory mapping table bridging ERP IDs to Shopify GIDs
-├── requirements.txt
-└── README.md
-```
-
----
 
 ## What Each Step Does
 
@@ -150,13 +136,7 @@ SHOPIFY_STORE  = "your-store.myshopify.com"
 SHOPIFY_TOKEN  = "your-admin-api-token"
 ```
 
-To run locally without a real Shopify store, the mock layer in `shopify_mock.py` intercepts all GraphQL calls and returns realistic Shopify-shaped responses with auto-generated GIDs.
 
-```bash
-python main.py
-```
-
----
 
 ## Pitfalls
 
