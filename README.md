@@ -136,13 +136,3 @@ SHOPIFY_STORE  = "your-store.myshopify.com"
 SHOPIFY_TOKEN  = "your-admin-api-token"
 ```
 
-
-
-## Pitfalls
-
-- Shopify has no native upsert. Always query by `externalId` before creating or you will get duplicate company records.
-- A `CompanyLocation` can only be assigned to one catalog at a time. If the same location needs to be in multiple catalogs, the architecture needs to be redesigned before implementation.
-- Deleting a company location that has open draft orders will throw an error. Always update in place.
-- Address changes that cross tax jurisdiction boundaries trigger tax recalculation. Check for open orders before proceeding and notify the finance team.
-- The Admin API token must be rotated before expiry. A lapsed token causes all mutations to fail silently if there is no error handling on the HTTP 401 response.
-- Webhook delivery from NetSuite is not guaranteed. The nightly reconciliation job exists specifically to catch records that were dropped due to failed or timed-out Lambda executions.
